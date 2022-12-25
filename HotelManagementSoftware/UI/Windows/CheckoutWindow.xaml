@@ -303,7 +303,7 @@
                    
                 </StackPanel>
                 <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10,10,0,0" 
-                                TextWrapping="Wrap" FontWeight="Bold" Text="{Binding TotalPayment}" FontSize="42"/>
+                                TextWrapping="Wrap" FontWeight="Bold" Text="{Binding TotalPayment, StringFormat=c}" FontSize="42"/>
             </Grid>
 
 

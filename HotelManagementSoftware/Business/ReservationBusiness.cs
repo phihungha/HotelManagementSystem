@@ -448,7 +448,6 @@ namespace HotelManagementSoftware.Business
                 _reservation.Order.PayTime = DateTime.Now;
                 _reservation.Order.Status = OrderStatus.Paid;
 
-                db.Update(reservation);
                 await db.SaveChangesAsync();
             }
         }

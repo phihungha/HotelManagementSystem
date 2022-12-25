@@ -182,7 +182,7 @@
 
                 <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal"
                             VerticalAlignment="Center">
-                    <CheckBox Margin="0,0,5,0" VerticalAlignment="Center" IsChecked="{Binding EndTimeFilter.Enable}" />
+                    <CheckBox Margin="0,0,5,0" VerticalAlignment="Center" IsChecked="{Binding DepartureTimeFilter.Enable}" />
                     <TextBlock VerticalAlignment="Center">Departure time</TextBlock>
                 </StackPanel>
                 <Grid Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="15,0,0,0">

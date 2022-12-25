@@ -229,7 +229,7 @@
                            Stretch="Fill" />
                     <TextBlock Text="New row"
                                FontSize="12"
-                               Style="{Binding TextLabel}"
+                               Style="{StaticResource TextLabel}"
                                Foreground="White"
                                Margin="4 0 0 0" />
                 </StackPanel>
