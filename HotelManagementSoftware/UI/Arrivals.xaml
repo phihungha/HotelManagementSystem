@@ -64,7 +64,7 @@
 
         <!--List-->
         <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Arrival}"
+                  ItemsSource="{Binding Arrivals}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True">
             <DataGrid.Columns>

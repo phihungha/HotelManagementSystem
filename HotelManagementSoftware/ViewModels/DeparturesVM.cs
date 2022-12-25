@@ -11,58 +11,114 @@ using System.ComponentModel;
 
 namespace HotelManagementSoftware.ViewModels
 {
-    public enum SearchOption
+    public enum DeparturesSearchBy
     {
+        [Description("Reservation ID")]
+        Id,
+
         [Description("Customer Name")]
         CustomerName,
-        [Description("Room type name")]
-        Roomtype,
-        [Description("Employee Name")]
-        Employee
+
+        [Description("Customer Phone number")]
+        CustomerPhoneNumber,
+
+        [Description("Customer Citizen ID")]
+        CustomerIdNum
     }
+
     public class DeparturesVM : ObservableValidator
     {
-        public ObservableCollection<Reservation> Departure { get; set; }
+        private string searchTerm = "";
+        private DeparturesSearchBy searchBy = DeparturesSearchBy.CustomerName;
         private ReservationBusiness reservationBusiness;
-        private CustomerBusiness customerBusiness;
 
-        private ReservationStatus status;
-   
-        public ReservationStatus Status
+        public ObservableCollection<Reservation> Departures { get; set; }
+
+        public string SearchTerm
         {
-            get => status;
-            set => SetProperty(ref status, value, true);
+            get => searchTerm;
+            set => SetProperty(ref searchTerm, value);
         }
 
-        public async void GetAllReservation()
+        public DeparturesSearchBy SearchBy
         {
-            if (reservationBusiness != null)
-            {
-                List<Reservation> reservations = await reservationBusiness.GetReservations();
-                Departure.Clear();
-                reservations.ForEach(roomtype =>
-                {
-                    Departure.Add(roomtype);
-                });
-
-            }
+            get => searchBy;
+            set => SetProperty(ref searchBy, value);
         }
 
-        public DeparturesVM(ReservationBusiness? reservationBusiness)
+        public ICommand SearchCommand { get; }
+
+        public DeparturesVM(ReservationBusiness reservationBusiness)
         {
             this.reservationBusiness = reservationBusiness;
-            Departure = new ObservableCollection<Reservation>();
-            GetAllReservation();
-
-
+            Departures = new ObservableCollection<Reservation>();
+            SearchCommand = new AsyncRelayCommand(Search);
+            LoadDepartures();
         }
 
         public async void LoadDepartures()
         {
-            Departure.Clear();
-            List<Reservation> reservations = await reservationBusiness.GetReservations();
-            reservations.ForEach(i => Departure.Add(i));
+            List<Reservation> reservations = await reservationBusiness.GetDepartures();
+            Departures.Clear();
+            reservations.ForEach(i => Departures.Add(i));
+        }
+
+        private async Task Search()
+        {
+            if (searchTerm == "")
+                LoadDepartures();
+            else
+            {
+                switch (SearchBy)
+                {
+                    case DeparturesSearchBy.Id:
+                        await GetDeparturesByReservationId();
+                        break;
+
+                    case DeparturesSearchBy.CustomerName:
+                        await GetDeparturesByCustomerName();
+                        break;
+
+                    case DeparturesSearchBy.CustomerIdNum:
+                        await GetDeparturesByCustomerIdNum();
+                        break;
+
+                    case DeparturesSearchBy.CustomerPhoneNumber:
+                        await GetDeparturesByCustomerPhoneNumber();
+                        break;
+                }
+            }
+        }
+
+        private async Task GetDeparturesByReservationId()
+        {
+            Reservation? reservation = await reservationBusiness.GetArrivalById(int.Parse(SearchTerm.Trim()));
+            Departures.Clear();
+            if (reservation != null)
+                Departures.Add(reservation);
+        }
+
+        private async Task GetDeparturesByCustomerName()
+        {
+            List<Reservation> reservations = await reservationBusiness.GetDepartures(customerName: SearchTerm.Trim());
+            Departures.Clear();
+            reservations.ForEach(i => Departures.Add(i));
+        }
+
+        private async Task GetDeparturesByCustomerPhoneNumber()
+        {
+            List<Reservation> reservations = await reservationBusiness.GetDepartures(customerPhoneNumber: SearchTerm.Trim());
+            Departures.Clear();
+            reservations.ForEach(i => Departures.Add(i));
+        }
+
+        private async Task GetDeparturesByCustomerIdNum()
+        {
+            List<Reservation> reservations = await reservationBusiness.GetDepartures(customerIdentityNum: SearchTerm.Trim());
+            Departures.Clear();
+            reservations.ForEach(i => Departures.Add(i));
         }
     }
 }
+
 

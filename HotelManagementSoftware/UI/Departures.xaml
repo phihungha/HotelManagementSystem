@@ -62,7 +62,7 @@
 
         <!--List-->
         <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Departure}"
+                  ItemsSource="{Binding Departures}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True">
             <DataGrid.Columns>

@@ -108,7 +108,9 @@ namespace HotelManagementSoftware.Business
             DateTime? fromDepartureTime = null,
             DateTime? toDepartureTime = null,
             decimal? fromTotalRentFee = null,
-            decimal? toTotalRentFee = null)
+            decimal? toTotalRentFee = null,
+            string? customerPhoneNumber = null,
+            string? customerIdentityNum = null)
         {
             using (var db = new Database())
             {
@@ -126,6 +128,14 @@ namespace HotelManagementSoftware.Business
                 if (customerName != null)
                     filteredRequest = filteredRequest
                         .Where(i => i.Customer != null && i.Customer.Name == customerName);
+
+                if (customerPhoneNumber != null)
+                    filteredRequest = filteredRequest
+                        .Where(i => i.Customer != null && i.Customer.PhoneNumber == customerPhoneNumber);
+
+                if (customerIdentityNum != null)
+                    filteredRequest = filteredRequest
+                        .Where(i => i.Customer != null && i.Customer.IdNumber == customerIdentityNum);
 
                 if (roomNumber != null)
                     filteredRequest = filteredRequest
@@ -170,14 +180,40 @@ namespace HotelManagementSoftware.Business
             }
         }
 
-        internal Task<List<Reservation>> GetReservationByCustomerPhoneNumber(string v)
+        public async Task<Reservation?> GetArrivalById(int id)
         {
-            throw new NotImplementedException();
+            Reservation? reservation = await GetReservationById(id);
+            if (reservation == null || reservation.Status != ReservationStatus.Reserved)
+                return null;
+            return reservation;
         }
 
-        internal Task<List<Reservation>> GetReservationByCustomerID(string v)
+        public async Task<Reservation?> GetDepartureById(int id)
         {
-            throw new NotImplementedException();
+            Reservation? reservation = await GetReservationById(id);
+            if (reservation == null || reservation.Status != ReservationStatus.CheckedIn)
+                return null;
+            return reservation;
+        }
+
+        public async Task<List<Reservation>> GetArrivals(string? customerName = null,
+                                                         string? customerPhoneNumber = null,
+                                                         string? customerIdentityNum = null)
+        {
+            return await GetReservations(status: ReservationStatus.Reserved,
+                                         customerName: customerName,
+                                         customerPhoneNumber: customerPhoneNumber,
+                                         customerIdentityNum: customerIdentityNum);
+        }
+
+        public async Task<List<Reservation>> GetDepartures(string? customerName = null,
+                                                           string? customerPhoneNumber = null,
+                                                           string? customerIdentityNum = null)
+        {
+            return await GetReservations(status: ReservationStatus.CheckedIn,
+                                         customerName: customerName,
+                                         customerPhoneNumber: customerPhoneNumber,
+                                         customerIdentityNum: customerIdentityNum);
         }
 
         /// <summary>
@@ -187,7 +223,7 @@ namespace HotelManagementSoftware.Business
         /// <param name="customerIdNumber">Personal ID of customer</param>
         /// <returns>List of reservations</returns>
         public async Task<List<UpcomingArrival>> GetUpcomingArrivals(
-            string? customerName = null, 
+            string? customerName = null,
             string? customerIdNumber = null)
         {
             using (var db = new Database())
@@ -197,7 +233,7 @@ namespace HotelManagementSoftware.Business
                             .Include(i => i.Order)
                             .Include(i => i.Room)
                             .ThenInclude(room => room.RoomType)
-                            .Where(i => i.ArrivalTime <= DateTime.Now.AddDays(1) 
+                            .Where(i => i.ArrivalTime <= DateTime.Now.AddDays(1)
                                         && i.ArrivalTime >= DateTime.Now.Date)
                             .Where(i => i.Status == ReservationStatus.Reserved);
 
@@ -469,7 +505,6 @@ namespace HotelManagementSoftware.Business
             }
         }
 
-
         /// <summary>
         /// Get reservation cancel fee.
         /// The cancel fee is the total rent fee * percent
@@ -490,7 +525,7 @@ namespace HotelManagementSoftware.Business
             if (dayNumberBeforeArrival < 0)
                 dayNumberBeforeArrival = 0;
 
-            ReservationCancelFeePercent? cancelFeePercent 
+            ReservationCancelFeePercent? cancelFeePercent
                 = await db.ReservationCancelFeePercents
                     .FirstOrDefaultAsync(i => i.DayNumberBeforeArrival == dayNumberBeforeArrival);
 
@@ -606,51 +641,5 @@ namespace HotelManagementSoftware.Business
             if (percent.DayNumberBeforeArrival < 0)
                 throw new ArgumentException("Day number cannot be smaller than 0");
         }
-
-        /// <summary>
-        /// Get reservation with customer name containing the search term.
-        /// </summary>
-        /// <param name="searchTerm">Name search term</param>
-        /// <returns>reservation</returns>
-        public async Task<List<Reservation>> GetReservationByCustomerName (string searchTerm)
-        {
-            using (var db = new Database())
-            {
-                return await db.Reservations
-                    .Where(i => i.Customer.Name.Contains(searchTerm))
-                    .ToListAsync();
-            }
-        }
-
-        /// <summary>
-        /// Get reservation with customer ID number containing the search term.
-        /// </summary>
-        /// <param name="searchTerm">Name search term</param>
-        /// <returns>reservation</returns>
-        /// 
-        //public async Task<List<Reservation>> GetReservationByCustomerID(string idNumber)
-        //{
-        //    using (var db = new Database())
-        //    {
-        //        return await db.Reservations
-        //            .FirstOrDefaultAsync(i => i.Customer.IdNumber == idNumber);
-        //    }
-        //}
-
-       
-        /// <summary>
-        /// Get reservation with customer's Phone Number containing the search term.
-        /// </summary>
-        /// <param name="searchTerm">Name search term</param>
-        /// <returns>reservation</returns>
-        //public async Task<List<Reservation>> GetReservationByCustomerPhoneNumber(string phoneNumber)
-        //{
-        //    using (var db = new Database())
-        //    {
-        //        return await db.Reservations
-        //            .FirstOrDefaultAsync(i => i.Customer.PhoneNumber == phoneNumber);
-        //    }
-            
-        //}
     }
 }

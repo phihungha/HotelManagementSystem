@@ -1,137 +1,121 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.ObjectModel;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
-using HotelManagementSoftware.Business;
-using System.Collections.Generic;
-using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace HotelManagementSoftware.ViewModels
 {
+    public enum ArrivalsSearchBy
+    {
+        [Description("Reservation ID")]
+        Id,
+
+        [Description("Customer Name")]
+        CustomerName,
+
+        [Description("Customer Phone number")]
+        CustomerPhoneNumber,
+
+        [Description("Customer Citizen ID")]
+        CustomerIdNum
+    }
 
     public class ArrivalsVM : ObservableValidator
     {
         private string searchTerm = "";
-        private CustomersSearchBy searchBy = CustomersSearchBy.Name;
-        private  ReservationBusiness reservationBusiness;
-        private ReservationStatus status;
-        private CustomerBusiness customerBusiness;
+        private ArrivalsSearchBy searchBy = ArrivalsSearchBy.CustomerName;
+        private ReservationBusiness reservationBusiness;
 
-        public ObservableCollection<Reservation> Arrival { get; set;}
-        public ReservationStatus Status
-        {
-            get => status;
-            set => SetProperty(ref status, value, true);
-        }
+        public ObservableCollection<Reservation> Arrivals { get; set; }
+
         public string SearchTerm
         {
             get => searchTerm;
             set => SetProperty(ref searchTerm, value);
         }
 
-        public CustomersSearchBy SearchBy
+        public ArrivalsSearchBy SearchBy
         {
             get => searchBy;
             set => SetProperty(ref searchBy, value);
         }
-        public async void GetAllReservation()
-        {
-            if (reservationBusiness != null)
-            {
-                List<Reservation> reservations = await reservationBusiness.GetReservations();
-                Arrival.Clear();
-                reservations.ForEach(roomtype =>
-                {
-                    Arrival.Add(roomtype);
-                });
-
-            }
-        }
 
         public ICommand SearchCommand { get; }
 
-        public ArrivalsVM(ReservationBusiness? reservationBusiness)
+        public ArrivalsVM(ReservationBusiness reservationBusiness)
         {
             this.reservationBusiness = reservationBusiness;
-            Arrival = new ObservableCollection<Reservation>();
+            Arrivals = new ObservableCollection<Reservation>();
             SearchCommand = new AsyncRelayCommand(Search);
-            GetAllReservation();
-
-
+            LoadArrivals();
         }
 
-   
         public async void LoadArrivals()
         {
-            Arrival.Clear();
-            List<Reservation> reservations = await reservationBusiness.GetReservations();
-            reservations.ForEach(i => Arrival.Add(i));
+            List<Reservation> reservations = await reservationBusiness.GetArrivals();
+            Arrivals.Clear();
+            reservations.ForEach(i => Arrivals.Add(i));
         }
 
         private async Task Search()
         {
             if (searchTerm == "")
-                GetAllReservation();
+                LoadArrivals();
             else
             {
                 switch (SearchBy)
                 {
-                    case CustomersSearchBy.Name:
-                        await GetCustomersByName();
+                    case ArrivalsSearchBy.Id:
+                        await GetArrivalsByReservationId();
                         break;
-                    case CustomersSearchBy.IdNumber:
-                        await GetCustomersByID();
+
+                    case ArrivalsSearchBy.CustomerName:
+                        await GetArrivalsByCustomerName();
                         break;
-                    case CustomersSearchBy.PhoneNumber:
-                        await GetCustomersByPhoneNumber();
+
+                    case ArrivalsSearchBy.CustomerIdNum:
+                        await GetArrivalsByCustomerIdNum();
+                        break;
+
+                    case ArrivalsSearchBy.CustomerPhoneNumber:
+                        await GetArrivalsByCustomerPhoneNumber();
                         break;
                 }
             }
         }
 
-        private async Task GetCustomersByName()
+        private async Task GetArrivalsByReservationId()
         {
-            if (reservationBusiness != null && SearchTerm != null)
-            {
-                List<Reservation> reservations = await reservationBusiness.GetReservationByCustomerName(SearchTerm.Trim());
-                Arrival.Clear();
-                reservations.ForEach(item =>
-                {
-                    Arrival.Add(item);
-                });
-            }
+            Reservation? reservation = await reservationBusiness.GetArrivalById(int.Parse(SearchTerm.Trim()));
+            Arrivals.Clear();
+            if (reservation != null)
+                Arrivals.Add(reservation);
         }
 
-        private async Task GetCustomersByID()
+        private async Task GetArrivalsByCustomerName()
         {
-            if (reservationBusiness != null && SearchTerm != null)
-            {
-                List<Reservation> reservations = await reservationBusiness.GetReservationByCustomerID(SearchTerm.Trim());
-                Arrival.Clear();
-                reservations.ForEach(item =>
-                {
-                    Arrival.Add(item);
-                });
-            }
+            List<Reservation> reservations = await reservationBusiness.GetArrivals(customerName: SearchTerm.Trim());
+            Arrivals.Clear();
+            reservations.ForEach(i => Arrivals.Add(i));
         }
 
-        private async Task GetCustomersByPhoneNumber()
+        private async Task GetArrivalsByCustomerPhoneNumber()
         {
-            if (reservationBusiness != null && SearchTerm != null)
-            {
-                List<Reservation> reservations = await reservationBusiness.GetReservationByCustomerPhoneNumber(SearchTerm.Trim());
-                Arrival.Clear();
-                reservations.ForEach(item =>
-                {
-                    Arrival.Add(item);
-                });
-            }
+            List<Reservation> reservations = await reservationBusiness.GetArrivals(customerPhoneNumber: SearchTerm.Trim());
+            Arrivals.Clear();
+            reservations.ForEach(i => Arrivals.Add(i));
         }
 
-
+        private async Task GetArrivalsByCustomerIdNum()
+        {
+            List<Reservation> reservations = await reservationBusiness.GetArrivals(customerIdentityNum: SearchTerm.Trim());
+            Arrivals.Clear();
+            reservations.ForEach(i => Arrivals.Add(i));
+        }
     }
 }
