@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="HotelManagementSoftware.UI.LoggedIn"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:HotelManagementSoftware.ViewModels"
+             xmlns:converter="clr-namespace:HotelManagementSoftware.ViewModels.Converters"
+             xmlns:ui="clr-namespace:HotelManagementSoftware.UI"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="GridLineColorSolid">#deebfa</SolidColorBrush>
+        
+        <converter:SidebarPageNameToString x:Key="SidebarPageNameToStringConverter" />
+        <converter:SidebarPageNameToImageSource x:Key="SidebarPageNameToImageSourceConverter" />
+        <converter:EmployeeTypeToString x:Key="EmployeeTypeToStringConverter" />
+        
+        <DataTemplate DataType="{x:Type vm:DashboardVM}">
+            <ui:Dashboard />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ReservationsVM}">
+            <ui:Reservations />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ArrivalsVM}">
+            <ui:Arrivals />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DeparturesVM}">
+            <ui:Departures />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HousekeepingVM}">
+            <ui:Housekeeping />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaintenanceVM}">
+            <ui:Maintenance />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RoomsVM}">
+            <ui:Rooms />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RoomTypesVM}">
+            <ui:RoomTypes />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomersVM}">
+            <ui:Customers />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EmployeesVM}">
+            <ui:Employee />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ConfigVM}">
+            <ui:Config />
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Margin="0,10,0,0" BorderBrush="{StaticResource GridLineColorSolid}" 
+                BorderThickness="0,0,0.8,0" Padding="15">
+            <Image Source="{StaticResource OneButlerIcon}" />
+        </Border>
+
+        <Border Grid.Row="1" Margin="0,0,0,20"
+                BorderThickness="0,0,0.8,0" BorderBrush="{StaticResource GridLineColorSolid}" >
+            <ListBox ItemsSource="{Binding SidebarPages}" 
+                     SelectedItem="{Binding CurrentPage}" 
+                     VerticalContentAlignment="Center" Margin="0,45,0,0"
+                     BorderThickness="0" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="8,10,8,10" Orientation="Horizontal">
+                            <Image VerticalAlignment="Center" Width="25" Margin="15,0,0,0"
+                                   Source="{Binding Converter={StaticResource SidebarPageNameToImageSourceConverter}}" />
+                            <TextBlock VerticalAlignment="Center" Margin="20,0,0,0" FontSize="17"
+                                       Text="{Binding Converter={StaticResource SidebarPageNameToStringConverter}}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+        <Border Grid.Column="1" Margin="24,10,24,0" 
+                BorderThickness="0,0,0,0.8" BorderBrush="{StaticResource GridLineColorSolid}"
+                Padding="0,0,0,10">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Image Source="{StaticResource UserIcon}" Width="60" Margin="0,0,15,0" />
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,15,0">
+                    <TextBlock FontSize="20" Foreground="{StaticResource PrimaryColorSolid}"
+                               Text="{Binding CurrentEmployeeName}" />
+                    <TextBlock FontSize="15" 
+                               Text="{Binding CurrentEmployeeType, 
+                                      Converter={StaticResource EmployeeTypeToStringConverter}}" />
+                </StackPanel>
+
+                <Button Command="{Binding LogoutCommand}" Grid.Column="2" Height="50" Width="100"
+                    Background="{StaticResource PrimaryColorSolid}" Foreground="White"
+                    FontSize="15" FontWeight="Bold" Content="Logout" Margin="15,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPageVM}" Margin="24,15,24,24" />
+    </Grid>
+</UserControl>

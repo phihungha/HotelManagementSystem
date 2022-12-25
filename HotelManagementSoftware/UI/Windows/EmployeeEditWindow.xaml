@@ -1,0 +1,249 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.Windows.EmployeeEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="https://handyorg.github.io/handycontrol"
+        xmlns:converters="clr-namespace:HotelManagementSoftware.ViewModels.Converters"
+        mc:Ignorable="d"
+        Title="Employee Edit Window"
+        Style="{StaticResource PoppinsFont}"
+        SizeToContent="Height"
+        Width="1000"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--Title-->
+        <StackPanel Grid.Row="0">
+                <TextBlock Margin="16 32 0 0" HorizontalAlignment="Left" 
+                           Style="{StaticResource WindowTitle}">
+                    Employee details
+                </TextBlock>
+            
+            <Border Width="Auto"
+                    BorderThickness="1"
+                    Margin="16 12 16 0"
+                    BorderBrush="Black"
+                    Opacity=".1" />
+        </StackPanel>
+
+        <!--Body-->
+        <Grid Grid.Row="1"
+              Margin="32 16 32 32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Left table-->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0">
+                    <StackPanel  Margin="8 0 16 20"
+                                 Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Identity number" />
+                        <ui:TextBox  ui:InfoElement.Placeholder="Enter identity number"
+                                     Text="{Binding Cmnd}"
+                                     ShowClearButton="True" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Name-->
+                <Grid Grid.Column="1"
+                      Grid.Row="0">
+                    <StackPanel Margin="16 0 8 20"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Name" />
+                        <ui:TextBox ui:InfoElement.Placeholder="Enter name"
+                                    Text="{Binding Name}"
+                                    ShowClearButton="True" />
+
+                    </StackPanel>
+                </Grid>
+
+                <!--DateOfBirth-->
+                <Grid Grid.Column="1"
+                      Grid.Row="1">
+                    <StackPanel Margin="16 0 8 20"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Date of birth" />
+                        <DatePicker HorizontalAlignment="Stretch"
+                                    SelectedDate="{Binding BirthDate,
+                                                   ValidatesOnDataErrors=True, 
+                                                   NotifyOnValidationError=True}"
+                                    DisplayDateEnd="{Binding MinimumBirthDate, Mode=OneWay}"
+                                    ui:InfoElement.Placeholder="Enter date of birth" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Phone-->
+                <Grid Grid.Column="1"
+                      Grid.Row="2">
+                    <StackPanel Margin="16 0 8 20"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Phone number" />
+                        <ui:TextBox  ShowClearButton="True"
+                                     Text="{Binding PhoneNumber}"
+                                     ui:InfoElement.Placeholder="Enter phone number" />
+                    </StackPanel>
+                </Grid>
+
+              
+                <!--Gender-->
+                <Grid Grid.Column="0"
+                      Grid.Row="1">
+                    <StackPanel Margin="8 0 16 10"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Gender" />
+                        <ComboBox ItemsSource="{Binding Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                                  SelectedValuePath="Value"
+                                  DisplayMemberPath="Description"
+                                  SelectedValue="{Binding Gender}" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Email-->
+                <Grid Grid.Column="0"
+                      Grid.Row="2">
+                    <StackPanel Margin="8 0 16 20"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Email" />
+                        <ui:TextBox  ui:InfoElement.Placeholder="Enter email"
+                                     ShowClearButton="True"
+                                     Text="{Binding Email}" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Username-->
+                <Grid Grid.Column="0"
+                      Grid.Row="3">
+                    <StackPanel Margin="8 0 16 0"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="Username" />
+                        <ui:TextBox ShowClearButton="True"
+                                    Text="{Binding UserName}"
+                                    ui:InfoElement.Placeholder="Enter username" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Password-->
+                <Grid Grid.Column="1"
+                      Grid.Row="3">
+                    <StackPanel Margin="16 0 8 0"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource TextLabel}"
+                                   FontSize="12"
+                                   Text="New password" />
+                        <ui:PasswordBox IsSafeEnabled="False"
+                                        ShowEyeButton="True"
+                                        UnsafePassword="{Binding Password}"
+                                        ShowClearButton="True"
+                                        ui:InfoElement.Placeholder="Enter password"
+                                        Margin="0,0,0,20" />
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+            <!--Right table-->
+            <Grid Grid.Column="1"
+                  Grid.Row="0"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="16 0 16 16"
+                            Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                               FontSize="12"
+                               Text="Employee type" />
+                    <ComboBox ItemsSource="{Binding EmployeeType, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              SelectedValue="{Binding EmployeeType}" />
+                </StackPanel>
+                <!--Address-->
+
+                <Grid Grid.Row="2"
+                      Margin="16 0 16 0">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                               FontSize="12"
+                               Text="Address" />
+                </Grid>
+
+                <Grid Grid.Row="3"
+                      Margin="16 0 16 16">
+                    <ui:TextBox HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Top"
+                                ui:InfoElement.Placeholder="Enter address"
+                                Text="{Binding Address}"
+                                ShowClearButton="True" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--Button-->
+        <ui:UniformSpacingPanel Grid.Row="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Spacing="10"
+                                ItemWidth="140"
+                                Margin="0,0,15,15"
+                                Orientation="Horizontal">
+            <Button x:Name="DeleteButton"
+                    Content="Delete"
+                    Click="DeleteButton_Click"
+                    FontWeight="Bold"
+                    Background="Red"
+                    Foreground="White"
+                    FontFamily="Poppins"
+                    Visibility="{Binding CanDelete, 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}"  />
+            <Button Content="Save"
+                    Click="SaveButton_Click"
+                    FontWeight="Bold"
+                    Background="{StaticResource PrimaryColorSolid}"
+                    Foreground="White"
+                    FontFamily="Poppins" />
+        </ui:UniformSpacingPanel>
+
+    </Grid>
+</Window>

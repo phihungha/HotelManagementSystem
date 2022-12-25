@@ -1,0 +1,313 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.Windows.MaintenanceEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagementSoftware.UI.Windows"
+        xmlns:vm="clr-namespace:HotelManagementSoftware.ViewModels.WindowVMs"
+        mc:Ignorable="d"
+        xmlns:ui="https://handyorg.github.io/handycontrol"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Title="MaintenanceEditWindow"
+        Style="{StaticResource PoppinsFont}"
+        SizeToContent="Height"
+        Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--Title-->
+        <StackPanel Grid.Row="0">
+            <StackPanel Margin="16 16 0 0"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="24"
+                           Style="{StaticResource TextLabel}"
+                           FontWeight="Bold"
+                           Text="Maintenance request details" />
+
+
+            </StackPanel>
+            <Border Width="Auto"
+                    BorderThickness="1"
+                    Margin="16 12 16 0"
+                    BorderBrush="Black"
+                    Opacity=".1" />
+        </StackPanel>
+
+        <!--Body-->
+        <Grid Grid.Row="1"
+              Margin="32 16 32 32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left table-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0"
+                      Grid.Column="0">
+                    <TextBlock TextWrapping="Wrap"
+                               FontSize="20"
+                               Style="{StaticResource TextLabel}"
+                               FontWeight="Bold"
+                               Text="Note" />
+
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2">
+                    <ui:TextBox FontSize="12"
+                                Margin="16"
+                                TextWrapping="Wrap"
+                                HorizontalContentAlignment="Left"
+                                VerticalContentAlignment="Top"
+                                ui:InfoElement.Placeholder="Note detail"
+                                Text="{Binding Path=Note,UpdateSourceTrigger=PropertyChanged}"
+                                ShowClearButton="True" />
+                </Grid>
+            </Grid>
+
+            <!--Right table-->
+            <Grid Grid.Column="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+
+                </Grid.RowDefinitions>
+
+                <!--IssueID-->
+                <Grid Grid.Column="0"
+                      Grid.Row="0">
+                    <StackPanel Margin="8 0 16 0"
+                                Orientation="Vertical">
+                        <TextBlock Style="{StaticResource ResourceKey=TextLabel}"
+                                   FontSize="12"
+                                   Text="Room" />
+                        <Grid>
+                            <ui:ComboBox x:Name="cb_room"
+                                         HorizontalAlignment="Stretch"
+                                         ui:InfoElement.Placeholder="Room number"
+                                         ItemsSource="{Binding RoomLists}"
+                                         DisplayMemberPath="RoomNumber"
+                                         SelectedIndex="0"
+                                         Visibility="{Binding CanNotClose, 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}"
+                                         SelectedItem="{Binding Room, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ui:ComboBox>
+
+                            <ui:TextBox x:Name="tb_room"
+                                        HorizontalAlignment="Stretch"
+                                        ui:InfoElement.Placeholder="Room number"
+                                        Visibility="{Binding CanClose, 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        IsEnabled="False"
+                                        Text="{Binding RoomNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ui:TextBox>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <!--StartDay-->
+                <Grid Grid.Column="0"
+                      Grid.Row="1">
+                    <StackPanel Margin="8 0 16 0"
+                                Orientation="Vertical">
+                        <hc:DateTimePicker ShowClearButton="True"
+                                           Style="{StaticResource DateTimePickerExtend}"
+                                           SelectedDateTime="{Binding EndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           DateTimeFormat="dd/MM/yyyy hh:mm:ss tt"
+                                           hc:InfoElement.Title="Start day"
+                                           hc:InfoElement.Placeholder="Enter end time" />
+                    </StackPanel>
+                </Grid>
+
+
+                <!--Duration-->
+                <Grid Grid.Column="0"
+                      Grid.Row="2">
+                    <StackPanel Margin="8 0 16 0"
+                                Orientation="Vertical">
+                        <hc:DateTimePicker ShowClearButton="True"
+                                           Style="{StaticResource DateTimePickerExtend}"
+                                           SelectedDateTime="{Binding CloseTime}"
+                                           DateTimeFormat="dd/MM/yyyy hh:mm:ss tt"
+                                           hc:InfoElement.Title="Close day"
+                                           hc:InfoElement.Placeholder="Enter close time"
+                                           IsEnabled="False" />
+                    </StackPanel>
+                </Grid>
+
+                <!--End day-->
+                <Grid Grid.Column="1"
+                      Grid.Row="1">
+                    <StackPanel Margin="16 0 8 0"
+                                Orientation="Vertical">
+                        <hc:DateTimePicker ShowClearButton="True"
+                                           Style="{StaticResource DateTimePickerExtend}"
+                                           SelectedDateTime="{Binding EndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           DateTimeFormat="dd/MM/yyyy hh:mm:ss tt"
+                                           hc:InfoElement.Title="End day"
+                                           hc:InfoElement.Placeholder="Enter end time" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Status-->
+                <Grid Grid.Column="1"
+                      Grid.Row="2">
+                    <StackPanel Margin="16 0 8 0"
+                                Orientation="Vertical"
+                                VerticalAlignment="Bottom">
+                        <TextBlock Style="{StaticResource ResourceKey=TextLabel}"
+                                   FontSize="12"
+                                   Text="Status" />
+                        <ui:TextBox HorizontalAlignment="Stretch"
+                                    ui:InfoElement.Placeholder="Status"
+                                    Text="{Binding Path=Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                    IsEnabled="False">
+                        </ui:TextBox>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--Item-->
+        <StackPanel Grid.Row="2">
+
+            <Border Width="Auto"
+                    BorderThickness="1"
+                    Margin="16 12 16 0"
+                    BorderBrush="Black"
+                    Opacity=".1" />
+            <StackPanel Margin="16 0 0 0"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="24"
+                           Style="{StaticResource TextLabel}"
+                           FontWeight="Bold"
+                           Text="Items" />
+            </StackPanel>
+
+            <Button Background="#369FFF"
+                    BorderBrush="Transparent"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="16 8 0 0"
+                    Command="{Binding CommandAddRow}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource AddIconWhite}"
+                           Stretch="Fill" />
+                    <TextBlock Text="New row"
+                               FontSize="12"
+                               Style="{Binding TextLabel}"
+                               Foreground="White"
+                               Margin="4 0 0 0" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!--Body-->
+        <!--List-->
+        <Grid Grid.Row="3"
+              Margin="16 0 32 8">
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Items}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="False"
+                      CanUserAddRows="True"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name"
+                                        Width="*"
+                                        Binding="{Binding Name}"
+                                        FontSize="14" />
+
+
+                    <DataGridTextColumn Header="Quantity"
+                                        Width="*"
+                                        Binding="{Binding Quantity}"
+                                        FontSize="14" />
+
+                    <DataGridTextColumn Header="Description"
+                                        Width="*"
+                                        Binding="{Binding Description}"
+                                        FontSize="14" />
+
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="DeleteItemButton"
+                                            Click="DeleteItemButton_Click"
+                                            Margin="0,0,10,0"
+                                            Tag="{Binding EmployeeId}">
+                                        <Image Source="{StaticResource DeleteIcon}" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--Button-->
+        <ui:UniformSpacingPanel Grid.Row="4"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Spacing="10"
+                                ItemWidth="139"
+                                Orientation="Horizontal"
+                                Margin="0 0 32 12">
+            <Button Content="Close request"
+                    FontWeight="Bold"
+                    Background="Green"
+                    Foreground="White"
+                    FontFamily="Poppins"
+                    Name="CloseRequest"
+                    Click="CloseRequest_Click"
+                    IsEnabled="{Binding CanUseCloseRequest}"
+                    Visibility="{Binding CanClose, 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Button Content="Save"
+                    Name="SaveButton"
+                    Click="SaveButton_Click"
+                    FontWeight="Bold"
+                    Background="{StaticResource PrimaryColorSolid}"
+                    Foreground="White"
+                    IsEnabled="{Binding IsEnabled}"
+                    FontFamily="Poppins" />
+        </ui:UniformSpacingPanel>
+    </Grid>
+</Window>

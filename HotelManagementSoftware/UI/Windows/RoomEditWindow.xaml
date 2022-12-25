@@ -1,0 +1,147 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.Windows.RoomEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:converters="clr-namespace:HotelManagementSoftware.ViewModels.Converters"
+        mc:Ignorable="d"
+        Title="Room details"
+        Style="{StaticResource PoppinsFont}"
+        SizeToContent="Height"
+        Width="600"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--Title-->
+        <StackPanel Grid.Row="0">
+            <TextBlock Margin="16 32 0 0" HorizontalAlignment="Left" 
+                           Style="{StaticResource WindowTitle}">
+                    Room details
+            </TextBlock>
+
+            <Border Width="Auto"
+                    BorderThickness="1"
+                    Margin="16 12 16 0"
+                    BorderBrush="Black"
+                    Opacity=".1" />
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+            Margin="32 16 32 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--Room number-->
+            <Grid>
+                <StackPanel  Margin="8 0 13 20"
+                                Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                               FontSize="12"
+                               Text="Room number" />
+                    <hc:TextBox  hc:InfoElement.Placeholder="Enter room number"
+                                 PreviewTextInput="TextBox_PreviewTextInput"
+                                 Text="{Binding Number}"
+                                 ShowClearButton="True" />
+                </StackPanel>
+            </Grid>
+
+            <!--Name-->
+            <Grid Grid.Column="1">
+                <StackPanel  Margin="13 0 8 20"
+                                Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                                FontSize="12"
+                                Text="Status" />
+                    <ComboBox ItemsSource="{Binding Status, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              SelectedValue="{Binding Status}" />
+                </StackPanel>
+            </Grid>
+
+            <!--Capacity-->
+            <Grid Grid.Column="1"
+                    Grid.Row="1">
+                <StackPanel Margin="13 0 8 20"
+                            Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                                FontSize="12"
+                                Text="Floor" />
+                    <hc:NumericUpDown Minimum="1"
+                                      Maximum="{Binding MaxFloor}"
+                                      Value="{Binding Floor}" />
+                </StackPanel>
+            </Grid>
+
+            <!--Rate-->
+            <Grid Grid.Column="0"
+                    Grid.Row="1">
+                <StackPanel Margin="8 0 13 20"
+                            Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                                FontSize="12"
+                                Text="Room type" />
+                    <ComboBox ItemsSource="{Binding RoomTypes}"
+                              DisplayMemberPath="Name"
+                              SelectedValue="{Binding RoomType}" />
+                </StackPanel>
+            </Grid>
+
+            <!--Email-->
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <StackPanel Margin="8 0 8 20"
+                            Orientation="Vertical">
+                    <TextBlock Style="{StaticResource TextLabel}"
+                               Text="Note" />
+                    <hc:TextBox hc:InfoElement.Placeholder="Enter note"
+                                ShowClearButton="True"
+                                Text="{Binding Note}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!--Button-->
+        <hc:UniformSpacingPanel Grid.Row="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Spacing="10"
+                                ItemWidth="140"
+                                Margin="0,0,15,15"
+                                Orientation="Horizontal">
+            <Button x:Name="DeleteButton"
+                    Content="Delete"
+                    Click="DeleteButton_Click"
+                    FontWeight="Bold"
+                    Background="Red"
+                    Foreground="White"
+                    FontFamily="Poppins"
+                    Visibility="{Binding CanDelete, 
+                                 Converter={StaticResource BooleanToVisibilityConverter}}"  />
+            <Button Content="Save"
+                    Click="SaveButton_Click"
+                    FontWeight="Bold"
+                    Background="{StaticResource PrimaryColorSolid}"
+                    Foreground="White"
+                    FontFamily="Poppins" />
+        </hc:UniformSpacingPanel>
+
+    </Grid>
+</Window>

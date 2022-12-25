@@ -1,0 +1,92 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.Windows.ChooseCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagementSoftware.UI.Windows"
+        mc:Ignorable="d"
+        Title="ChooseCustomerWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--Top bar-->
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <StackPanel Margin="15,10,0,15" HorizontalAlignment="Left" Grid.Row="0" >
+                <TextBlock TextWrapping="Wrap" FontSize="22" FontWeight="Bold"
+                       Text="Choose Customer"/>
+            </StackPanel>
+
+
+
+
+
+        </Grid>
+
+        <Button x:Name="AddCustomer"
+                Content="Add customer"
+                HorizontalAlignment="Right"
+                Margin="8"
+                Grid.Row="1"
+                Foreground="White"
+                Click="AddCustomer_Click"
+                Background="{StaticResource PrimaryBrush}"
+                />
+
+        <!--List-->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Customers}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name"
+                                    Width="*"
+                                    Binding="{Binding Name}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Gender"
+                                    Width="*"
+                                    Binding="{Binding Gender}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Date of birth"
+                                    Width="*"
+                                    Binding="{Binding BirthDate, StringFormat={}{0:dd}/{0:MM}/{0:yyyy}}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Phone number"
+                                    Width="*"
+                                    Binding="{Binding PhoneNumber}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Identity number"
+                                    Width="*"
+                                    Binding="{Binding IdNumber}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Country"
+                                    Width="*"
+                                    Binding="{Binding Country.Name}"
+                                    FontSize="14" />
+
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ChooseButton" Click="ChooseButton_Click"
+                                        Margin="0,0,10,0"
+                                        Content="Choose"
+                                        Visibility="Visible"
+                                        Tag="{Binding CustomerId}">
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

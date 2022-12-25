@@ -1,0 +1,64 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.ChooseRoomTypeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagementSoftware.UI"
+        xmlns:vm="clr-namespace:HotelManagementSoftware.ViewModels.WindowVMs"
+        mc:Ignorable="d"
+        Title="ChooseRoomTypeWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+
+
+        <!--List-->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding RoomTypes}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Name" 
+                                    Width="*" 
+                                    FontSize="14"
+                                    Binding="{Binding Name}" />
+
+                <DataGridTextColumn Header="Capacity" 
+                                    Width="*" 
+                                    FontSize="14"
+                                    Binding="{Binding Capacity}" />
+
+                <DataGridTextColumn Header="Rate" 
+                                    Width="*" 
+                                    FontSize="14"
+                                    Binding="{Binding Rate}" />
+
+                <DataGridTextColumn Header="Description" 
+                                    Width="3*" 
+                                    FontSize="14"
+                                    Binding="{Binding Description}" />
+
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ChooseButton" Click="ChooseButton_Click"
+                                        Margin="0,0,10,0"
+                                        Content="Choose"
+                                        Visibility="Visible"
+                                        Tag="{Binding RoomTypeId}">
+
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

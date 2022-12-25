@@ -1,0 +1,97 @@
+﻿<Window x:Class="HotelManagementSoftware.UI.ChooseRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagementSoftware.UI"
+        xmlns:vm="clr-namespace:HotelManagementSoftware.ViewModels.WindowVMs"
+        xmlns:converters="clr-namespace:HotelManagementSoftware.ViewModels.Converters"
+        mc:Ignorable="d"
+        Title="ChooseRoomWindow" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:RoomStatusToString x:Key="RoomStatusToStringConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--Top bar-->
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid  Margin="5,5,5,0">
+
+                
+                <Button x:Name="ChooseRoomType"  Grid.Column="0" Content="Choose Room Type" HorizontalAlignment="Left" Click="ChooseRoomTypeButton_Click"/>
+            </Grid>
+
+            <!--Filter-->
+            <Grid Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                
+
+            </Grid>
+
+
+        </Grid>
+
+        <!--List-->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Rooms}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room number"
+                                    Width="*"
+                                    Binding="{Binding RoomNumber}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Room type"
+                                    Width="*"
+                                    Binding="{Binding RoomType.Name}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Floor"
+                                    Width="*"
+                                    Binding="{Binding Floor}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Note"
+                                    Width="*"
+                                    Binding="{Binding Note}"
+                                    FontSize="14" />
+
+                <DataGridTextColumn Header="Status"
+                                    Width="Auto"
+                                    Binding="{Binding Status,
+                                              Converter={StaticResource RoomStatusToStringConverter}}"
+                                    FontSize="14" />
+
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="ChooseButton" Click="ChooseButton_Click"
+                                    Margin="0,0,10,0"
+                                    Visibility="Visible"
+                                    Tag="{Binding RoomId}"
+                                    BorderThickness="0"
+                                    Background="{StaticResource PrimaryColorSolid}">
+                                <Image Source="{StaticResource AddIconWhite}" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

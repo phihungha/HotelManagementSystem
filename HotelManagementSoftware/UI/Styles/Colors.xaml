@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="PrimaryColor">#369FFF</Color>
+    <SolidColorBrush x:Key="PrimaryColorSolid" Color="{StaticResource PrimaryColor}" />
+
+    <Color x:Key="BorderColor">#deebfa</Color>
+    <SolidColorBrush x:Key="BorderColorSolid" Color="{StaticResource BorderColor}" />
+
+    <Color x:Key="CheckoutColor">#FF8E26</Color>
+    <SolidColorBrush x:Key="CheckoutColorSolid" Color="{StaticResource CheckoutColor}" />
+</ResourceDictionary>
