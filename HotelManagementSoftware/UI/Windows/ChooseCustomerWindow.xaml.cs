@@ -31,7 +31,7 @@ namespace HotelManagementSoftware.UI.Windows
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             CustomerEditWindow window = new CustomerEditWindow();
-            window.ShowDialog();
+            window.Show();
             window.Closed += Window_Closed;
         }
 
