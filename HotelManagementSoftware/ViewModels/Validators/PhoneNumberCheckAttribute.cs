@@ -1,6 +1,6 @@
-﻿using System;
+﻿using HotelManagementSoftware.Utils;
+using System;
 using System.ComponentModel.DataAnnotations;
-using HotelManagementSoftware.Utils;
 
 namespace HotelManagementSoftware.ViewModels.Validators
 {

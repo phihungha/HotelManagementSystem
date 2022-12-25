@@ -13,7 +13,7 @@ namespace HotelManagementSoftware.UI.Windows
         public EmployeeEditWindow()
         {
             InitializeComponent();
-            DataContext= App.Current.Services.GetRequiredService<EmployeeEditWindowVM>(); 
+            DataContext = App.Current.Services.GetRequiredService<EmployeeEditWindowVM>();
         }
 
         public EmployeeEditWindow(int employeeId)

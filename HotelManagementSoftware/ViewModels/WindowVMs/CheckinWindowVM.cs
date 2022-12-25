@@ -1,22 +1,15 @@
-﻿using HandyControl.Controls;
-using HotelManagementSoftware.Business;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 
 namespace HotelManagementSoftware.ViewModels.WindowVMs
 {
     public class CheckinWindowVM : ObservableValidator
     {
-      
+
         private ReservationBusiness? reservationBusiness;
         private RoomBusiness? roomBusiness;
         private CustomerBusiness? customerBusiness;
@@ -224,14 +217,14 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
         #endregion
 
         public CheckinWindowVM(CustomerBusiness customerBusiness,
-                                    ReservationBusiness reservationBusiness, RoomBusiness roomBusiness,EmployeeBusiness employeeBusiness)
+                                    ReservationBusiness reservationBusiness, RoomBusiness roomBusiness, EmployeeBusiness employeeBusiness)
         {
             this.roomBusiness = roomBusiness;
             this.customerBusiness = customerBusiness;
             this.reservationBusiness = reservationBusiness;
             this.employeeBusiness = employeeBusiness;
 
-            
+
         }
 
 

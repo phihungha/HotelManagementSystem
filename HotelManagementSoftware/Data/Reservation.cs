@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagementSoftware.Data
 {
@@ -65,7 +63,7 @@ namespace HotelManagementSoftware.Data
         public int ReservationCancelFeePercentId { get; set; }
 
         public int DayNumberBeforeArrival { get; set; }
-        
+
         public int PercentOfTotal { get; set; }
 
         public ReservationCancelFeePercent(int dayNumberBeforeArrival, int percentOfTotal)

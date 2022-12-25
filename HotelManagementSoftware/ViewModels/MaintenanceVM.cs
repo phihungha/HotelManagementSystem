@@ -1,8 +1,5 @@
 ﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
-using HotelManagementSoftware.UI.Windows;
-using HotelManagementSoftware.ViewModels.WindowVMs;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
@@ -10,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
 
 using System.Windows.Input;
 

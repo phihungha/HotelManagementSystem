@@ -34,7 +34,7 @@
                 </TextBlock>
             </hc:UniformSpacingPanel>
         </Button>
-        <DataGrid Grid.Row="1"
+        <DataGrid Grid.Row="1" Margin="0,15,0,0"
                   ItemsSource="{Binding Reservations}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True">

@@ -86,7 +86,7 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                 roomType.Capacity = Capacity;
                 roomType.Description = Description;
                 await roomTypeBusiness.EditRoomType(roomType);
-            } 
+            }
             else
             {
                 var newRoomType = new RoomType(Name, Capacity, Rate, Description);

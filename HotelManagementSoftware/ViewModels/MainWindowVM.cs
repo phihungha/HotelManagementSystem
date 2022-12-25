@@ -1,5 +1,4 @@
-﻿using HotelManagementSoftware.Business;
-using HotelManagementSoftware.ViewModels.Utils;
+﻿using HotelManagementSoftware.ViewModels.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Messaging;

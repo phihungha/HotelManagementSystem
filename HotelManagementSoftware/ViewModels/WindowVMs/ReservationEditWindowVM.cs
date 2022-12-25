@@ -1,12 +1,7 @@
-﻿using HandyControl.Controls;
-using HotelManagementSoftware.Business;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -40,7 +35,7 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
             get => cmnd;
             set
             {
-                SetProperty(ref cmnd, value,true );
+                SetProperty(ref cmnd, value, true);
             }
         }
         public string Name
@@ -146,11 +141,12 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
 
         // Stay info
         #region Stay info
-        private DateTime arrivalTime=DateTime.Now;
+        private DateTime arrivalTime = DateTime.Now;
         private DateTime departureTime = DateTime.Now.AddDays(1);
         private int numOfDay;
         private int person;
-        public DateTime ArrivalTime {
+        public DateTime ArrivalTime
+        {
             get => arrivalTime;
             set
             {
@@ -158,7 +154,8 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                 Load();
             }
         }
-        public DateTime DepartureTime {
+        public DateTime DepartureTime
+        {
             get => departureTime;
             set
             {
@@ -166,14 +163,16 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                 Load();
             }
         }
-        public int NumOfDay {
+        public int NumOfDay
+        {
             get => numOfDay;
             set
             {
                 SetProperty(ref numOfDay, value, true);
             }
         }
-        public int Person {
+        public int Person
+        {
             get => person;
             set
             {
@@ -303,17 +302,17 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                     return true;
                 }
             }
-            else 
-                 return false;
-           
+            else
+                return false;
+
         }
 
-        
+
         public Action CloseAction { get; set; }
         #endregion
         public void Load()
         {
-            if(room != null && room.RoomType != null)
+            if (room != null && room.RoomType != null)
             {
                 TimeSpan stayPeriod = DepartureTime - ArrivalTime;
                 NumOfDay = (int)Math.Ceiling(stayPeriod.TotalDays);

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using HotelManagementSoftware.Business;
+using HotelManagementSoftware.Data;
+using HotelManagementSoftware.ViewModels.Validators;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using HotelManagementSoftware.Data;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using HotelManagementSoftware.Business;
-using System.Collections.ObjectModel;
-using HotelManagementSoftware.ViewModels.Validators;
 
 namespace HotelManagementSoftware.ViewModels.WindowVMs
 {
@@ -44,7 +44,7 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                     CardNumber = "";
                     ExpireDate = null;
                 }
-            } 
+            }
         }
 
         private string idNumber = "";

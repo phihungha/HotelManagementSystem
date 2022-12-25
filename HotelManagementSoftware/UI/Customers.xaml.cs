@@ -34,7 +34,7 @@ namespace HotelManagementSoftware.UI
 
         private void Window_Closed(object? sender, EventArgs e)
         {
-           ((CustomersVM)DataContext).LoadCustomers();
+            ((CustomersVM)DataContext).LoadCustomers();
         }
     }
 }

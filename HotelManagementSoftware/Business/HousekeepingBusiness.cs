@@ -96,12 +96,12 @@ namespace HotelManagementSoftware.Business
 
                 if (openEmployeeName != null)
                     filteredRequest = filteredRequest
-                        .Where(i => i.OpenEmployee != null && 
+                        .Where(i => i.OpenEmployee != null &&
                                     i.OpenEmployee.Name == openEmployeeName);
 
                 if (closeEmployeeName != null)
                     filteredRequest = filteredRequest
-                        .Where(i => i.CloseEmployee != null && 
+                        .Where(i => i.CloseEmployee != null &&
                                     i.CloseEmployee.Name == closeEmployeeName);
 
                 if (status != null)
@@ -126,7 +126,7 @@ namespace HotelManagementSoftware.Business
             {
                 Room _room = await db.Rooms.FirstAsync(i => i.RoomId == request.Room.RoomId);
                 Employee _openEmployee = await db.Employees.FirstAsync(i => i.EmployeeId == request.OpenEmployeeId);
-                
+
                 if (request.Room == null)
                     throw new ArgumentException("Room cannot be empty");
 
@@ -168,7 +168,7 @@ namespace HotelManagementSoftware.Business
             {
                 HousekeepingRequest _request
                     = await db.HousekeepingRequests.FirstAsync(
-                                i => i.HousekeepingRequestId  == request.HousekeepingRequestId);
+                                i => i.HousekeepingRequestId == request.HousekeepingRequestId);
                 Employee _closeEmployee = await db.Employees.FirstAsync(i => i.EmployeeId == closeEmployee.EmployeeId);
                 Room _room = await db.Rooms.FirstAsync(i => i.RoomId == request.Room.RoomId);
 
@@ -199,7 +199,7 @@ namespace HotelManagementSoftware.Business
             if (request.Status == HousekeepingRequestStatus.Opened
                 && (request.CloseEmployee != null || request.CloseEmployeeId != null))
                 throw new ArgumentException("Currently opening request cannot have close time");
-            if (request.Status == HousekeepingRequestStatus.Closed 
+            if (request.Status == HousekeepingRequestStatus.Closed
                 && (request.CloseEmployee == null || request.CloseEmployeeId == null))
                 throw new ArgumentException("Closed request needs to have a close employee");
             if (request.StartTime >= request.CloseTime)

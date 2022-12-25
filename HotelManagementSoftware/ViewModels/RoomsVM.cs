@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace HotelManagementSoftware.ViewModels
 {
-    public class RoomsVM: ObservableValidator
+    public class RoomsVM : ObservableValidator
     {
         private RoomBusiness roomBusiness;
         private FloorBusiness floorBusiness;

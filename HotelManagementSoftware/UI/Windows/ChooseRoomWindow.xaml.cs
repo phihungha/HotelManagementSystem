@@ -2,18 +2,8 @@
 using HotelManagementSoftware.ViewModels.WindowVMs;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelManagementSoftware.UI
 {
@@ -40,7 +30,7 @@ namespace HotelManagementSoftware.UI
             var chooseRoomType = new ChooseRoomTypeWindow();
             chooseRoomType.DialogFinished += ChooseRoomTypeWindow_DialogFinished;
             chooseRoomType.ShowDialog();
-            
+
         }
         void ChooseRoomTypeWindow_DialogFinished(object sender, WindowEventArgs e)
         {

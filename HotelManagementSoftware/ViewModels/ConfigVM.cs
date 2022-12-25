@@ -33,7 +33,7 @@ namespace HotelManagementSoftware.ViewModels
         public ICommand CancelCommand { get; }
 
         public ConfigVM(
-            ReservationCancelFeePercentBusiness cancelFeeBusiness, 
+            ReservationCancelFeePercentBusiness cancelFeeBusiness,
             FloorBusiness floorBusiness)
         {
             this.cancelFeeBusiness = cancelFeeBusiness;
@@ -51,7 +51,8 @@ namespace HotelManagementSoftware.ViewModels
             CancelFeePercents.Clear();
             currentCancelFeePercents.Clear();
             List<ReservationCancelFeePercent> percents = await cancelFeeBusiness.GetPercents();
-            percents.ForEach(i => {
+            percents.ForEach(i =>
+            {
                 CancelFeePercents.Add(i);
                 currentCancelFeePercents.Add(i);
             });

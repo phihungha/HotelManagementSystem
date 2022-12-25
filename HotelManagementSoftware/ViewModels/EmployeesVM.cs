@@ -1,12 +1,12 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using HotelManagementSoftware.Business;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace HotelManagementSoftware.ViewModels
 {

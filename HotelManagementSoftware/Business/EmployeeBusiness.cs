@@ -1,12 +1,12 @@
 ﻿using HotelManagementSoftware.Data;
+using HotelManagementSoftware.Utils;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using HotelManagementSoftware.Utils;
 
 namespace HotelManagementSoftware.Business
 {

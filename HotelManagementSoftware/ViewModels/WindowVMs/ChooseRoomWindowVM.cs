@@ -3,9 +3,6 @@ using HotelManagementSoftware.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelManagementSoftware.ViewModels.WindowVMs
 {
@@ -25,27 +22,27 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
             this.roomTypeBusiness = roomTypeBusiness;
             this.floorBusiness = floorBusiness;
             Rooms = new ObservableCollection<Room>();
-            
+
         }
         public async void GetUsableRoom(int id)
         {
-           
-              
-                RoomType roomType = await roomTypeBusiness.GetRoomTypeById(id);
-                this.SelectedRoomType = roomType;
-                if (roomBusiness != null)
-                {
-                    // List<Room> rooms = await roomBusiness.GetUsableRooms(SelectedRoomType.Name, await floorBusiness.GetMaxFloorNumber(), DateTime.Now, DateTime.Now.AddYears(1));
-                    List<Room> rooms = await roomBusiness.GetUsableRooms(Arrivaltime, Departuretime, SelectedRoomType.Name);
+
+
+            RoomType roomType = await roomTypeBusiness.GetRoomTypeById(id);
+            this.SelectedRoomType = roomType;
+            if (roomBusiness != null)
+            {
+                // List<Room> rooms = await roomBusiness.GetUsableRooms(SelectedRoomType.Name, await floorBusiness.GetMaxFloorNumber(), DateTime.Now, DateTime.Now.AddYears(1));
+                List<Room> rooms = await roomBusiness.GetUsableRooms(Arrivaltime, Departuretime, SelectedRoomType.Name);
                 Rooms.Clear();
                 rooms.ForEach(room =>
                     {
                         Rooms.Add(room);
                     });
 
-                }
-            
-            
+            }
+
+
         }
         public async void LoadRooms(DateTime Arrivaltime, DateTime Departuretime)
         {

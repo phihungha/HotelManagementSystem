@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using HotelManagementSoftware.Data;
+﻿using HotelManagementSoftware.Data;
 using HotelManagementSoftware.Utils;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagementSoftware.ViewModels.Validators
 {
@@ -16,7 +16,7 @@ namespace HotelManagementSoftware.ViewModels.Validators
 
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            
+
 
             object? instance = validationContext.ObjectInstance,
                     otherValue = instance.GetType()?.GetProperty(propertyName)?.GetValue(instance);
@@ -34,7 +34,7 @@ namespace HotelManagementSoftware.ViewModels.Validators
                     return new("Invalid CMND number");
             }
 
-            if (idNumberType == IdNumberType.Passport 
+            if (idNumberType == IdNumberType.Passport
                 && (value == null || (string)value == ""))
                 return new("Passport number cannot be empty");
 

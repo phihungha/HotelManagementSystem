@@ -2,11 +2,7 @@
 using HotelManagementSoftware.Data;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace HotelManagementSoftware.ViewModels.WindowVMs
 {
@@ -50,8 +46,8 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
         }
         public async Task Cancel()
         {
-                Reservation? reservation = await reservationBusiness.GetReservationById(reservationId);
-                await reservationBusiness.CancelReservation(reservation);
+            Reservation? reservation = await reservationBusiness.GetReservationById(reservationId);
+            await reservationBusiness.CancelReservation(reservation);
         }
     }
 }

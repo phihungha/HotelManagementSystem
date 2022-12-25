@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -295,7 +294,7 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
             if (GetErrors().Count() != 0)
                 return false;
 
-            if (maintenance == null) 
+            if (maintenance == null)
                 return false;
 
             Employee? current = employeeBusiness.CurrentEmployee;
@@ -329,7 +328,7 @@ namespace HotelManagementSoftware.ViewModels.WindowVMs
                     Items.Remove(SelectedItem);
                     return;
                 }
-                
+
             }
         }
 

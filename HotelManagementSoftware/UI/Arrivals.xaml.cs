@@ -1,5 +1,4 @@
-﻿using HotelManagementSoftware.UI.Windows;
-using HotelManagementSoftware.ViewModels;
+﻿using HotelManagementSoftware.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;

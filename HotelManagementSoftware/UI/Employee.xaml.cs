@@ -1,6 +1,5 @@
 ﻿using HotelManagementSoftware.UI.Windows;
 using HotelManagementSoftware.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Controls;

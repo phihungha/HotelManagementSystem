@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
-using HotelManagementSoftware.Business;
-using System.Collections.ObjectModel;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace HotelManagementSoftware.ViewModels
 {
-    public class RoomTypesVM: ObservableValidator
+    public class RoomTypesVM : ObservableValidator
     {
         private RoomTypeBusiness roomTypeBusiness;
 

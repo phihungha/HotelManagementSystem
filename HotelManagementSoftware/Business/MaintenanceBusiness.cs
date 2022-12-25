@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelManagementSoftware.Business
@@ -103,12 +102,12 @@ namespace HotelManagementSoftware.Business
 
                 if (openEmployeeName != null)
                     filteredRequest = filteredRequest
-                        .Where(i => i.OpenEmployee != null && 
+                        .Where(i => i.OpenEmployee != null &&
                                     i.OpenEmployee.Name == openEmployeeName);
 
                 if (closeEmployeeName != null)
                     filteredRequest = filteredRequest
-                        .Where(i => i.CloseEmployee != null && 
+                        .Where(i => i.CloseEmployee != null &&
                                     i.CloseEmployee.Name == closeEmployeeName);
 
                 if (status != null)
@@ -173,7 +172,7 @@ namespace HotelManagementSoftware.Business
             ValidateMaintenanceRequest(request);
             using (var db = new Database())
             {
-                MaintenanceRequest _request 
+                MaintenanceRequest _request
                     = await db.MaintenanceRequests.FirstAsync(
                                 i => i.MaintenanceRequestId == request.MaintenanceRequestId);
                 Employee _closeEmployee = await db.Employees.FirstAsync(i => i.EmployeeId == closeEmployee.EmployeeId);
@@ -182,7 +181,7 @@ namespace HotelManagementSoftware.Business
                 if (request.Status == MaintenanceRequestStatus.Closed)
                     throw new ArgumentException("Request already closed");
 
-                if (closeEmployee.EmployeeType != EmployeeType.Manager 
+                if (closeEmployee.EmployeeType != EmployeeType.Manager
                     && closeEmployee.EmployeeType != EmployeeType.MaintenanceManager)
                     throw new ArgumentException("Close employee needs to be a manager or maintenance manager");
 

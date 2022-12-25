@@ -26,7 +26,7 @@ namespace HotelManagementSoftware.ViewModels
     public class LoggedInVM : ObservableObject
     {
         // List of sidebar page options
-        public SidebarPageName[] SidebarPages { get; private set; } = {};
+        public SidebarPageName[] SidebarPages { get; private set; } = { };
 
         public string CurrentEmployeeName { get; } = "";
         public EmployeeType CurrentEmployeeType { get; }
@@ -62,7 +62,7 @@ namespace HotelManagementSoftware.ViewModels
                 CurrentEmployeeType = currentEmployee.EmployeeType;
             }
             SetupAccessiblePageOptions();
-            
+
             LogoutCommand = new RelayCommand(
                 () => MainWindowNavigationUtils.NavigateTo(MainWindowPageName.Login)
             );

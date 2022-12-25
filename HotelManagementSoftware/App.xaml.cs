@@ -6,7 +6,6 @@ using HotelManagementSoftware.ViewModels;
 using HotelManagementSoftware.ViewModels.WindowVMs;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
@@ -28,7 +27,7 @@ namespace HotelManagementSoftware
             Thread.CurrentThread.CurrentCulture = new CultureInfo("vn-VN");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("vn-VN");
             FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement), 
+                typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(
                         XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)
                         )

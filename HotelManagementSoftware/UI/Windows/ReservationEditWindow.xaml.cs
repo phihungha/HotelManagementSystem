@@ -3,18 +3,8 @@ using HotelManagementSoftware.ViewModels.Utils;
 using HotelManagementSoftware.ViewModels.WindowVMs;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelManagementSoftware.UI
 {
@@ -91,7 +81,7 @@ namespace HotelManagementSoftware.UI
         {
             DateTime Arrivaltime = ((ReservationEditWindowVM)DataContext).ArrivalTime;
             DateTime Departuretime = ((ReservationEditWindowVM)DataContext).DepartureTime;
-            var chooseRoom = new ChooseRoomWindow(Arrivaltime,Departuretime);
+            var chooseRoom = new ChooseRoomWindow(Arrivaltime, Departuretime);
             chooseRoom.DialogFinished += ChooseRoomWindow_DialogFinished;
             chooseRoom.ShowDialog();
         }

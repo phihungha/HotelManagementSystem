@@ -188,7 +188,7 @@ namespace HotelManagementSoftware.Business
                 throw new ArgumentException("Name cannot be empty");
             if (customer.IdNumber == "")
                 throw new ArgumentException("Id number cannot be empty");
-            if (customer.IdNumberType == IdNumberType.Cmnd 
+            if (customer.IdNumberType == IdNumberType.Cmnd
                 && !ValidationUtils.ValidateCmnd(customer.IdNumber))
                 throw new ArgumentException("CMND number must have 9 or 12 digits");
             if (customer.Country == null)

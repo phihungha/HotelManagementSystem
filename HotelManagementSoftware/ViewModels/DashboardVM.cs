@@ -1,5 +1,4 @@
 ﻿using HotelManagementSoftware.Business;
-using HotelManagementSoftware.Data;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace HotelManagementSoftware.ViewModels
             AutoReset = true,
             Enabled = true
         };
-        
+
         private Timer upcomingListTimer = new Timer()
         {
             Interval = 60000,

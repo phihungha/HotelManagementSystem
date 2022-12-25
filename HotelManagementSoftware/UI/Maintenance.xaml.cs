@@ -1,8 +1,8 @@
-﻿using HotelManagementSoftware.ViewModels;
+﻿using HotelManagementSoftware.UI.Windows;
+using HotelManagementSoftware.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using HotelManagementSoftware.UI.Windows;
 
 
 namespace HotelManagementSoftware.UI

@@ -1,14 +1,11 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
-using Microsoft.Toolkit.Mvvm.Input;
+﻿using HotelManagementSoftware.Business;
 using HotelManagementSoftware.Data;
-using System.Windows.Input;
-using System.ComponentModel.DataAnnotations;
-using HotelManagementSoftware.Business;
-using System.Windows;
 using HotelManagementSoftware.ViewModels.Validators;
-using System.Threading.Tasks;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSoftware.ViewModels.WindowVMs
 {

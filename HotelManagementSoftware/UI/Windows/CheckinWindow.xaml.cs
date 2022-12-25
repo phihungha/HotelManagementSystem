@@ -28,7 +28,7 @@ namespace HotelManagementSoftware.UI
             try
             {
                 await ((CheckinWindowVM)DataContext).CheckIn();
-                 Close();
+                Close();
             }
             catch (Exception err)
             {

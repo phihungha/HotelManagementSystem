@@ -102,7 +102,7 @@ namespace HotelManagementSoftware.Business
                                     r.ArrivalTime,
                                     departureTime,
                                     r.DepartureTime)
-                            && r.Status != ReservationStatus.Reserved 
+                            && r.Status != ReservationStatus.Reserved
                             && r.Status != ReservationStatus.CheckedIn)).ToList();
             }
         }
@@ -159,7 +159,7 @@ namespace HotelManagementSoftware.Business
                 }
                 catch (DbUpdateException err)
                 {
-                    if (err.InnerException != null 
+                    if (err.InnerException != null
                         && err.InnerException.Message.Contains("duplicate"))
                         throw new ArgumentException("There is already a room with the same number");
                     else
@@ -262,7 +262,7 @@ namespace HotelManagementSoftware.Business
 
                 if (descriptionSearchTerm != null)
                     filteredRequest = filteredRequest
-                        .Where(i => i.Description != null && 
+                        .Where(i => i.Description != null &&
                                     i.Description.Contains(descriptionSearchTerm));
 
                 if (capacity != null)
